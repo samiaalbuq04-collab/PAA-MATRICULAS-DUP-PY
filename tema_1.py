@@ -1,14 +1,19 @@
 from trabalho_base import mergesort, aleatorio
 
 
-def duplicada_esperta(v):
+def duplicada_esperta_fases(v):
     ordenada, comps_ord = mergesort(v)
     comps_var = 0
     for i in range(len(ordenada) - 1):
         comps_var += 1
         if ordenada[i] == ordenada[i + 1]:
-            return ordenada[i], comps_ord + comps_var
-    return -1, comps_ord + comps_var
+            return ordenada[i], comps_ord, comps_var
+    return -1, comps_ord, comps_var
+
+
+def duplicada_esperta(v):
+    r, c_ord, c_var = duplicada_esperta_fases(v)
+    return r, c_ord + c_var
 
 
 def duplicada_ingenua(v):
@@ -31,6 +36,8 @@ def testar_correcao():
         tem = len(set(v)) < len(v)  # oráculo, só no teste
         assert (r1 != -1) == tem
         assert (r2 != -1) == tem
+        assert r1 == -1 or v.count(r1) >= 2
+        assert r2 == -1 or v.count(r2) >= 2
     print("correção ok em", len(casos), "entradas")
 
 
