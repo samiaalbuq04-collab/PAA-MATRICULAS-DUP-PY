@@ -1,4 +1,4 @@
-from trabalho_base import mergesort
+from trabalho_base import mergesort, aleatorio
 
 
 def duplicada_esperta(v):
@@ -9,3 +9,30 @@ def duplicada_esperta(v):
         if ordenada[i] == ordenada[i + 1]:
             return ordenada[i], comps_ord + comps_var
     return -1, comps_ord + comps_var
+
+
+def duplicada_ingenua(v):
+    comps = 0
+    for i in range(len(v)):
+        for j in range(i + 1, len(v)):
+            comps += 1
+            if v[i] == v[j]:
+                return v[i], comps
+    return -1, comps
+
+
+def testar_correcao():
+    casos = [[], [7], [4, 4, 4], [1, 2, 3]]
+    for k in range(1000):
+        casos.append(aleatorio(30, 0, 60, semente=k))
+    for v in casos:
+        r1, _ = duplicada_ingenua(v)
+        r2, _ = duplicada_esperta(v)
+        tem = len(set(v)) < len(v)  # oráculo, só no teste
+        assert (r1 != -1) == tem
+        assert (r2 != -1) == tem
+    print("correção ok em", len(casos), "entradas")
+
+
+if __name__ == "__main__":
+    testar_correcao()
