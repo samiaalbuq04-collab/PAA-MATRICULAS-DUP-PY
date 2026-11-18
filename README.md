@@ -35,7 +35,7 @@ T(n) = Σᵢ₌₀ⁿ⁻² Σⱼ₌ᵢ₊₁ⁿ⁻¹ 1 = n(n−1)/2, ou seja, Θ
 
 Esperta:
 
-- Ordenação (mergesort): no pior caso, n log₂n − n + 1 comparações; no melhor caso (já ordenada), (n/2) log₂n.
+- Ordenação (mergesort): no pior caso, n⌈log₂n⌉ − 2^⌈log₂n⌉ + 1 comparações (igual a n log₂n − n + 1 quando n é potência de 2); no melhor caso, cerca de (n/2) log₂n.
 - Varredura: entre 1 e n − 1 comparações.
 - Total no pior caso: ≈ n log₂n, ou seja, Θ(n log n). A varredura é linear e fica abaixo da ordenação; na soma, o termo dominante define a classe.
 
@@ -60,9 +60,9 @@ Hipótese declarada: valores aleatórios inteiros entre 0 e ⌊n/2⌋, gerados p
 | Ingênua, melhor caso | c = 1 (constante) | 1,00 |
 | Ingênua, caso médio | não estabilizou com 30 amostras | 1,62 a 2,29 |
 | Esperta, pior caso | c/(n log₂n) ≈ 0,98 | 2,13 a 2,28 |
-| Esperta, melhor caso | c/(n log₂n) ≈ 0,49 | 2,13 a 2,31 |
+| Esperta, melhor caso | c/(n log₂n) de 0,48 a 0,49 | 2,13 a 2,31 |
 | Esperta, caso médio | c/(n log₂n) sobe de 0,82 a 0,88 | 2,24 a 2,37 |
-| Esperta, fase de ordenação (pior caso) | c/(n log₂n) ≈ 0,83 a 0,93 | 2,14 a 2,33 |
+| Esperta, fase de ordenação (pior caso) | c/(n log₂n) de 0,83 a 0,93 | 2,14 a 2,33 |
 | Esperta, fase de varredura (pior caso) | c/n = 1,00 | 2,00 |
 
 A série grande (12 500 a 100 000) foi medida só nas versões espertas, em chamadas separadas, de modo que a primeira linha de cada série mostra `-` no dobro. A ingênua não foi medida nessa série porque cresce com n².
@@ -71,14 +71,14 @@ As tabelas completas estão na saída de `python tema_1.py` e em `medicoes.csv`.
 
 ## Confronto entre contagem à mão e medição
 
-| n | Ingênua pior: n(n−1)/2 | Medido | Varredura: n−1 | Medido | Ordenação, limite n log₂n − n + 1 | Medido |
+| n | Ingênua pior: n(n−1)/2 | Medido | Varredura: n−1 | Medido | Ordenação, pior caso exato | Medido |
 |---|---|---|---|---|---|---|
-| 100 | 4 950 | 4 950 | 99 | 99 | 565 | 553 |
-| 400 | 79 800 | 79 800 | 399 | 399 | 3 058 | 2 942 |
-| 1600 | 1 279 200 | 1 279 200 | 1 599 | 1 599 | 15 431 | 15 036 |
+| 100 | 4 950 | 4 950 | 99 | 99 | 573 | 553 |
+| 400 | 79 800 | 79 800 | 399 | 399 | 3 089 | 2 942 |
+| 1600 | 1 279 200 | 1 279 200 | 1 599 | 1 599 | 15 553 | 15 036 |
 
 - A ingênua e a varredura batem exatamente com a conta à mão.
-- A ordenação medida fica abaixo do limite superior porque a entrada `distintos(n)` é aleatória, e não o pior caso construído do mergesort.
+- A ordenação medida fica abaixo do pior caso exato porque a entrada `distintos(n)` é aleatória, e não o pior caso construído do mergesort.
 - No melhor caso da ordenação, a conta (n/2) log₂n dá 332 para n = 100 e 8 515 para n = 1600, e o medido foi 316 e 8 256. A diferença vem de n não ser potência de 2: os pisos e tetos do log e da divisão da lista reduzem o total.
 
 ## Cobrança
@@ -109,4 +109,4 @@ As tabelas completas estão na saída de `python tema_1.py` e em `medicoes.csv`.
 
 ## Declaração de uso de IA
 
-[Preencher pela equipe.] Exemplo: usamos o Claude como apoio para [explicar o enunciado, sugerir a estrutura do código, revisar as contagens e redigir este README]. Aproveitamos [o que foi usado de fato]. Todas as medições foram executadas por nós, e cada integrante pode explicar qualquer linha ou contador do código.
+[Preencher pela equipe com o que de fato foi feito.] Modelo: usamos o Claude como apoio para [explicar o enunciado, sugerir a estrutura do código, revisar as contagens e redigir o README]. Aproveitamos [o que foi usado de fato]. Todas as medições foram executadas por nós, e cada integrante pode explicar qualquer linha do código ou contador.
