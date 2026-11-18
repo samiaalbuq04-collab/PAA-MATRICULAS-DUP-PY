@@ -71,20 +71,35 @@ if __name__ == "__main__":
     teste_do_dobro("Ingênua, caso médio", lambda n: media_caso(n, duplicada_ingenua),
                    tamanhos=tam, versao="ingenua_medio", dados=dados)
 
-    # Esperta: também a série grande
+    # Esperta: série pequena e série grande em chamadas separadas
     teste_do_dobro("Esperta, pior caso", lambda n: duplicada_esperta(distintos(n))[1],
-                   tamanhos=tam + grande, versao="esperta_pior", dados=dados)
+                   tamanhos=tam, versao="esperta_pior", dados=dados)
+    teste_do_dobro("Esperta, pior caso, série grande",
+                   lambda n: duplicada_esperta(distintos(n))[1],
+                   tamanhos=grande, versao="esperta_pior_grande", dados=dados)
+
     teste_do_dobro("Esperta, melhor caso", lambda n: duplicada_esperta(melhor_caso(n))[1],
-                   tamanhos=tam + grande, versao="esperta_melhor", dados=dados)
+                   tamanhos=tam, versao="esperta_melhor", dados=dados)
+    teste_do_dobro("Esperta, melhor caso, série grande",
+                   lambda n: duplicada_esperta(melhor_caso(n))[1],
+                   tamanhos=grande, versao="esperta_melhor_grande", dados=dados)
+
     teste_do_dobro("Esperta, caso médio", lambda n: media_caso(n, duplicada_esperta),
                    tamanhos=tam, versao="esperta_medio", dados=dados)
 
     # Peso de cada fase da esperta (pior caso)
     teste_do_dobro("Esperta, fase ordenação (pior caso)",
                    lambda n: duplicada_esperta_fases(distintos(n))[1],
-                   tamanhos=tam + grande, versao="esperta_fase_ordenacao", dados=dados)
+                   tamanhos=tam, versao="esperta_fase_ordenacao", dados=dados)
+    teste_do_dobro("Esperta, fase ordenação, série grande",
+                   lambda n: duplicada_esperta_fases(distintos(n))[1],
+                   tamanhos=grande, versao="esperta_fase_ordenacao_grande", dados=dados)
+
     teste_do_dobro("Esperta, fase varredura (pior caso)",
                    lambda n: duplicada_esperta_fases(distintos(n))[2],
-                   tamanhos=tam + grande, versao="esperta_fase_varredura", dados=dados)
+                   tamanhos=tam, versao="esperta_fase_varredura", dados=dados)
+    teste_do_dobro("Esperta, fase varredura, série grande",
+                   lambda n: duplicada_esperta_fases(distintos(n))[2],
+                   tamanhos=grande, versao="esperta_fase_varredura_grande", dados=dados)
 
     salvar_csv(dados, "medicoes.csv")
